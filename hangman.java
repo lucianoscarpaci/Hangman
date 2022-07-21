@@ -24,14 +24,21 @@ public class hangman {
 
         List<Character> userGuesses = new ArrayList<>();
 
-        for (int i=0; i < word.length(); i++) {
-            if (userGuesses.contains(word.charAt(i))) {
-                System.out.print(word.charAt(i));
-            }
-            else {
-                System.out.print("-");
-            }
-        }
-        System.out.println();
+        printWordState(word, userGuesses);
+
+        System.out.println("Please enter a number");
+
     }
+        
+        private static void printWordState(String word, List<Character> userGuesses) {
+            for (int i=0; i < word.length(); i++) {
+                if (userGuesses.contains(word.charAt(i))) {
+                    System.out.print(word.charAt(i));
+                }
+                else {
+                    System.out.print("-");
+                }
+            }
+            System.out.println();
+        }
 }
