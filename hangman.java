@@ -9,6 +9,7 @@ public class hangman {
     public static void main(String[] args) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(new java.io.File("./words_alpha.txt"));
+        Scanner keyboard = new Scanner(System.in);
 
         List<String> words = new ArrayList<>();
 
@@ -27,6 +28,12 @@ public class hangman {
         printWordState(word, userGuesses);
 
         System.out.println("Please enter a number");
+        String guessLetter = keyboard.nextLine();
+        /* take first character add it to the list */
+        userGuesses.add(guessLetter.charAt(0));
+        /* print the game state whereever the letter appears,
+        it should replace the real letter */
+        printWordState(word, userGuesses);
 
     }
         
