@@ -21,5 +21,17 @@ public class hangman {
         String word = words.get(rand.nextInt(words.size())); //random number between 0 and list of words
 
         System.out.println(word);
+
+        List<Character> userGuesses = new ArrayList<>();
+
+        for (int i=0; i < word.length(); i++) {
+            if (userGuesses.contains(word.charAt(i))) {
+                System.out.print(word.charAt(i));
+            }
+            else {
+                System.out.print("-");
+            }
+        }
+        System.out.println();
     }
 }
