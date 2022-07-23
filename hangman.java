@@ -3,7 +3,6 @@ import java.io.FileNotFoundException; //import java file class
 import java.util.Scanner; //import scanner class
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class hangman {
     public static void main(String[] args) throws FileNotFoundException {
@@ -23,29 +22,133 @@ public class hangman {
 
         System.out.println(word);
 
+
         List<Character> userGuesses = new ArrayList<>();
 
-        printWordState(word, userGuesses);
+    int wrongCount = 0;    
+    while(true) {
 
-        System.out.println("Please enter a number");
+        printHangMan(wrongCount);
+
+        if(wrongCount >= 6) {
+            System.out.println("You Loose the game");
+            break;
+        }
+
+        printWordState(word, userGuesses);
+        if (!getThePlayerGuess(keyboard, word, userGuesses)) {
+            wrongCount++;
+        }
+
+        System.out.println(" --------");
+        System.out.println(" |      |");
+        if (wrongCount >= 1) {
+            System.out.println(" O");
+        }
+
+        if (wrongCount >= 2) {
+            System.out.print("\\ ");
+            if (wrongCount >= 3) {
+                System.out.println("/");
+            }
+            else {
+                System.out.println("");
+            }
+        }
+        if (wrongCount >= 4) {
+            System.out.println(" |");
+        }
+
+        if (wrongCount >= 5) {
+            System.out.print("/ ");
+            if (wrongCount >= 6) {
+                System.out.println("\\");
+            }
+            else {
+                System.out.println("");
+            }
+        }
+        System.out.println("");
+        System.out.println("");
+
+        
+        
+
+        if(printWordState(word, userGuesses)) {
+            System.out.println("You Win!!");
+            break;
+        }
+        System.out.println("Please enter your guess for the word:");
+        if(keyboard.nextLine().equals(word)) {
+            System.out.println("You Win!!");
+            break;
+        }
+        else {
+            System.out.println("No! wrong character.");
+        }
+    }
+    
+    }
+
+    private static void printHangMan(Integer wrongCount) {
+        System.out.println(" --------");
+        System.out.println(" |      |");
+        if (wrongCount >= 1) {
+            System.out.println(" O");
+        }
+
+        if (wrongCount >= 2) {
+            System.out.print("\\ ");
+            if (wrongCount >= 3) {
+                System.out.println("/");
+            }
+            else {
+                System.out.println("");
+            }
+        }
+        if (wrongCount >= 4) {
+            System.out.println(" |");
+        }
+
+        if (wrongCount >= 5) {
+            System.out.print("/ ");
+            if (wrongCount >= 6) {
+                System.out.println("\\");
+            }
+            else {
+                System.out.println("");
+            }
+        }
+        System.out.println("");
+        System.out.println("");
+    }
+
+    private static boolean getThePlayerGuess(Scanner keyboard, String word, List<Character> userGuesses) {
+        System.out.println("Please enter a letter");
         String guessLetter = keyboard.nextLine();
         /* take first character add it to the list */
         userGuesses.add(guessLetter.charAt(0));
         /* print the game state whereever the letter appears,
         it should replace the real letter */
-        printWordState(word, userGuesses);
 
+        return word.contains(guessLetter);
+        
     }
         
-        private static void printWordState(String word, List<Character> userGuesses) {
+        private static boolean printWordState(String word, List<Character> userGuesses) {
+            int trueCount = 0;
             for (int i=0; i < word.length(); i++) {
                 if (userGuesses.contains(word.charAt(i))) {
                     System.out.print(word.charAt(i));
+                    trueCount++;
                 }
                 else {
                     System.out.print("-");
                 }
             }
             System.out.println();
+            return (word.length() == trueCount);
         }
+
+        
 }
